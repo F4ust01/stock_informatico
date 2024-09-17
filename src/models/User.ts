@@ -1,7 +1,15 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Document } from "mongoose";
 import bcrypt from "bcrypt";
 
-const UserSchema = new Schema(
+// Define la interfaz IUser
+export interface IUser extends Document {
+  name: string;
+  email: string;
+  password: string;
+  role: string;
+}
+
+const UserSchema = new Schema<IUser>(
   {
     name: {
       type: String,
@@ -37,4 +45,4 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-export default model("User", UserSchema);
+export default model<IUser>("User", UserSchema);

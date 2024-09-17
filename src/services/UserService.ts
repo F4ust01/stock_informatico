@@ -1,4 +1,3 @@
-// services/UserService.ts
 import User from "../models/User";
 import { InferSchemaType } from "mongoose";
 
@@ -23,7 +22,7 @@ class UserService {
     return await User.findOne({ email });
   }
 
-  async create(user: NewUserType) {
+  async create(user: Partial<NewUserType>) {
     return await User.create(user);
   }
 

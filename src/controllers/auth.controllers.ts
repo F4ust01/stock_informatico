@@ -1,4 +1,3 @@
-// controllers/auth.controllers.ts
 import { Request, Response } from "express";
 import UserService from "../services/UserService";
 import bcrypt from "bcryptjs";

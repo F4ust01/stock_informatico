@@ -1,8 +1,7 @@
-// middlewares/authMiddleware.ts
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 
-export const verifyToken = (
+export const authMiddleware = (
   req: Request,
   res: Response,
   next: NextFunction
@@ -12,7 +11,7 @@ export const verifyToken = (
   if (!token) {
     return res
       .status(401)
-      .json({ message: "Acceso denegado. No token proporcionado." });
+      .json({ message: "Acceso denegado. No hubo token proporcionado." });
   }
 
   try {
