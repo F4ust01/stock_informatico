@@ -11,13 +11,12 @@ export const register = async (req: Request, res: Response) => {
     // Verificar si el usuario ya existe
     const userExists = await UserService.findByEmail(email);
     if (userExists) {
-      return res
-        .status(400)
-        .json({ message: "El correo electrónico ya está en uso." });
+      return res.status(400).json({ message: "El correo electrónico ya está en uso." });
     }
 
-    // Crear el usuario
-    const newUser = await UserService.create({ name, email, password });
+    // Crear el usuario, asignando el rol por defecto "user"
+    const newUser = await UserService.create({ name, email, password, role: "user" });
+
     res.status(201).json({ message: "Usuario registrado con éxito" });
   } catch (err: any) {
     res.status(500).json({ message: err.message });
@@ -31,17 +30,13 @@ export const login = async (req: Request, res: Response) => {
     // Verificar si el usuario existe
     const user = await UserService.findByEmail(email);
     if (!user) {
-      return res
-        .status(400)
-        .json({ message: "Correo electrónico o contraseña incorrectos" });
+      return res.status(400).json({ message: "Correo electrónico o contraseña incorrectos" });
     }
 
     // Verificar la contraseña
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
-      return res
-        .status(400)
-        .json({ message: "Correo electrónico o contraseña incorrectos" });
+      return res.status(400).json({ message: "Correo electrónico o contraseña incorrectos" });
     }
 
     // Generar el token JWT
