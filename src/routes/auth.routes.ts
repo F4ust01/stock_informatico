@@ -13,14 +13,17 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.post('/register', async (req, res) => {
+router.post("/register", async (req, res) => {
+  console.log(req.body); // Verificar qué datos están llegando
   try {
-    const { username, password } = req.body;
-    const newUser = await registerUser(username, password);
+    const { name, email, password, role } = req.body;
+    const newUser = await registerUser(name, email, password, role);
     res.status(201).json(newUser);
-  } catch (error:any) {
+  } catch (error: any) {
     res.status(400).json({ message: error.message });
   }
 });
+
+
 
 export default router;

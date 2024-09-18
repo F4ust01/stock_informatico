@@ -3,6 +3,9 @@ import cors from "cors";
 import morgan from "morgan";
 import { PORT } from "../config/conf";
 import productRoutes from "../routes/productos.routes";
+import authRoutes from "../routes/auth.routes";
+import equipmentRoutes from "../routes/equipmentsRoutes";
+import MovementLog from "../routes/movementLogRoutes";
 import { dbConnection } from "../db/connection";
 
 class Server {
@@ -29,7 +32,10 @@ class Server {
   }
 
   routes() {
-    this.app.use("/api", productRoutes);
+    this.app.use("/api/products", productRoutes); // Ruta para productos
+    this.app.use("/api/auth", authRoutes); // Ruta para autenticación
+    this.app.use("/api/equipment", equipmentRoutes); // Ruta para equipos
+    this.app.use("/api/movement", MovementLog); //Ruta para movimientos
   }
 
   listen() {

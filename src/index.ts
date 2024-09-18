@@ -1,6 +1,6 @@
 
 
-import Server from "./src/models/Server";
+import Server from "./models/Server";
 
 const server = new Server();
 
