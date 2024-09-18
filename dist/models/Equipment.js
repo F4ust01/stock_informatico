@@ -15,7 +15,7 @@ const EquipmentSchema = new mongoose_1.Schema({
     status: {
         type: String,
         enum: ["available", "assigned", "maintenance"],
-        default: "available",
+        required: true,
     },
     location: {
         type: String,

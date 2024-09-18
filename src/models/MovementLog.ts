@@ -3,7 +3,7 @@ import { Schema, model } from "mongoose";
 const MovementLogSchema = new Schema({
   equipment: {
     type: Schema.Types.ObjectId,
-    ref: "Equipment",
+    ref: "Product",
     required: true,
   },
   user: {
