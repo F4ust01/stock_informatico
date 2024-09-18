@@ -34,8 +34,45 @@ export const createProduct = async (req: Request, res: Response) => {
   }
 };
 
-export const updateProduct = (req: Request, res: Response) => {
-  return res.json({
-    msg: "All Products",
-  });
+export const updateProduct = async (req: Request, res: Response) => {
+  try {
+    const updatedProduct = await ProductService.update(req.params.id, req.body);
+    if (!updatedProduct) {
+      throw {
+        statusCode: 404,
+        status: "Not Found",
+        message: "Producto no encontrado",
+      };
+    }
+    return res.json({
+      message: "Producto actualizado",
+      product: updatedProduct,
+    });
+  } catch (err: any) {
+    return res.status(err.statusCode || 500).json({
+      message: err.message,
+      status: err.status,
+    });
+  }
+};
+
+export const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    const deletedProduct = await ProductService.delete(req.params.id);
+    if (!deletedProduct) {
+      throw {
+        statusCode: 404,
+        status: "Not Found",
+        message: "Producto no encontrado",
+      };
+    }
+    return res.status(204).json({
+      message: "Producto eliminado",
+    });
+  } catch (err: any) {
+    return res.status(err.statusCode || 500).json({
+      message: err.message,
+      status: err.status,
+    });
+  }
 };

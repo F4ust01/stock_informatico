@@ -26,6 +26,19 @@ class ProductService {
             return yield Product_js_1.default.create(product);
         });
     }
+    update(productId, productData) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // Usar Partial<ProductType> para permitir actualizaciones parciales
+            return yield Product_js_1.default.findByIdAndUpdate(productId, productData, {
+                new: true,
+            });
+        });
+    }
+    delete(productId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield Product_js_1.default.findByIdAndDelete(productId);
+        });
+    }
 }
 exports.default = new ProductService();
 //# sourceMappingURL=ProductService.js.map

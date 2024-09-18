@@ -15,6 +15,17 @@ class ProductService {
     // Usar ProductType para tipar el parámetro
     return await Product.create(product);
   }
+
+  async update(productId: string, productData: Partial<ProductType>) {
+    // Usar Partial<ProductType> para permitir actualizaciones parciales
+    return await Product.findByIdAndUpdate(productId, productData, {
+      new: true,
+    });
+  }
+
+  async delete(productId: string) {
+    return await Product.findByIdAndDelete(productId);
+  }
 }
 
 export default new ProductService();

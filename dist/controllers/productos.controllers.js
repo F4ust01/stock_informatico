@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateProduct = exports.createProduct = exports.getProducts = void 0;
+exports.deleteProduct = exports.updateProduct = exports.createProduct = exports.getProducts = void 0;
 const ProductService_1 = __importDefault(require("../services/ProductService"));
 const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -49,10 +49,49 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.createProduct = createProduct;
-const updateProduct = (req, res) => {
-    return res.json({
-        msg: "All Products",
-    });
-};
+const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const updatedProduct = yield ProductService_1.default.update(req.params.id, req.body);
+        if (!updatedProduct) {
+            throw {
+                statusCode: 404,
+                status: "Not Found",
+                message: "Producto no encontrado",
+            };
+        }
+        return res.json({
+            message: "Producto actualizado",
+            product: updatedProduct,
+        });
+    }
+    catch (err) {
+        return res.status(err.statusCode || 500).json({
+            message: err.message,
+            status: err.status,
+        });
+    }
+});
 exports.updateProduct = updateProduct;
+const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const deletedProduct = yield ProductService_1.default.delete(req.params.id);
+        if (!deletedProduct) {
+            throw {
+                statusCode: 404,
+                status: "Not Found",
+                message: "Producto no encontrado",
+            };
+        }
+        return res.status(204).json({
+            message: "Producto eliminado",
+        });
+    }
+    catch (err) {
+        return res.status(err.statusCode || 500).json({
+            message: err.message,
+            status: err.status,
+        });
+    }
+});
+exports.deleteProduct = deleteProduct;
 //# sourceMappingURL=productos.controllers.js.map
