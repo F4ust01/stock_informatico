@@ -18,7 +18,6 @@ const morgan_1 = __importDefault(require("morgan"));
 const conf_1 = require("../config/conf");
 const productos_routes_1 = __importDefault(require("../routes/productos.routes"));
 const auth_routes_1 = __importDefault(require("../routes/auth.routes"));
-const equipmentsRoutes_1 = __importDefault(require("../routes/equipmentsRoutes"));
 const movementLogRoutes_1 = __importDefault(require("../routes/movementLogRoutes"));
 const connection_1 = require("../db/connection");
 class Server {
@@ -42,7 +41,6 @@ class Server {
     routes() {
         this.app.use("/api/products", productos_routes_1.default); // Ruta para productos
         this.app.use("/api/auth", auth_routes_1.default); // Ruta para autenticación
-        this.app.use("/api/equipment", equipmentsRoutes_1.default); // Ruta para equipos
         this.app.use("/api/movement", movementLogRoutes_1.default); //Ruta para movimientos
     }
     listen() {

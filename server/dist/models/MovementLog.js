@@ -4,7 +4,7 @@ const mongoose_1 = require("mongoose");
 const MovementLogSchema = new mongoose_1.Schema({
     equipment: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: "Equipment",
+        ref: "Product",
         required: true,
     },
     user: {
